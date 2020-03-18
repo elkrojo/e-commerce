@@ -1,8 +1,9 @@
 {% load staticfiles %}
 <html>
     <head>
-        <title>{% block page_title %}{% endblock %}</title>
+        <title>Ecommerce</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}" type="text/css">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>  
     </head>
@@ -16,6 +17,14 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'registration' %}">Register</a></li>
                 {% endif %}
+                <li>
+                    <a href="{% url 'view_cart' %}">
+                        <i class="fa fa-shipping-cart"></i> Cart
+                        {% if product_count > 0 %}
+                        <label class="badge badge-warning" for="">{{ product_count }}</label>
+                        {% endif %}
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -28,6 +37,16 @@
             {% endfor %}
         </div>
         {% endif %}
+
+        <div class="container">
+            <div class="display">
+                <form action="{% url 'search' %}" method="GET">
+                    <input type="text" name="q">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
         {% block content %}{% endblock %}
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
